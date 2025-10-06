@@ -264,7 +264,7 @@ CREATE OR REPLACE VIEW v_actividadesPorPerfil AS
 SELECT
     p.nombre_perfil,
     p.descripcion_perfil,
-    (SELECT COUNT(*) FROM usuarios WHERE id_perfil = p.id_perfil) AS cantidad_usuarios_con_este_perfil,
+    (SELECT COUNT(*) FROM usuarios WHERE idj_perfil = p.id_perfil) AS cantidad_usuarios_con_este_perfil,
     COUNT(ua.id_actividad) AS total_actividades_participadas_por_perfil,
     ROUND(AVG(a.puntos_otorgados),2) AS promedio_puntos_por_usuario_en_este_perfil,
     ROUND(
