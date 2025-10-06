@@ -1,4 +1,4 @@
-# TALLER_01 — DDL/DML + Normalización + Contenedores + Conexión
+# TALLER_01
 
 ## 1) Entregables (en esta carpeta)
 
