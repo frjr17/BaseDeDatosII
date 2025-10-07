@@ -51,7 +51,7 @@ Ruta: `TALLER_02/` (esta misma carpeta)
 
 ## 3) Cómo ejecutar los scripts (solo MariaDB en Docker)
 
-Los scripts están numerados (01_, 02_, 03_, 04_) y se ejecutan en orden lexicográfico. Usaremos la inicialización automática de MariaDB para los tres primeros (DDL, INSERTs y VISTAS). El archivo 04 (consultas) conviene ejecutarlo manualmente.
+Los scripts están numerados (01_, 02_, 03_, 04_) y se ejecutan en orden numerico. Usaremos la inicialización automática de MariaDB para los tres primeros (DDL, INSERTs y VISTAS). El archivo 04 (consultas) conviene ejecutarlo manualmente.
 
 Requisitos:
 - Docker instalado
@@ -73,8 +73,7 @@ docker run -d \
     mariadb:10.11
 ```
 Notas:
-- Si la imagen no está local, Docker la descargará automáticamente (mariadb:10.11).
-- Los .sql del volumen se ejecutan solo la primera vez que se inicializa el datadir.
+- Si no exportaste la ruta del proyecto, deberás ingresarla manualmente en el comando de docker en lugar de la variable de entorno.
 - 04_queries.sql también se ejecutaría si lo dejas ahí; si no quieres eso, renómbralo o ejecútalo manualmente (recomendado).
 
 3. Verifica que la inicialización terminó  
@@ -138,7 +137,7 @@ SELECT (SELECT COUNT(estado_login) from v_historialLoginDetallado WHERE estado_l
 1. Relación N:N (usuarios ↔ actividades):
 	- Desafío: el diseño inicial modelaba una relación 1:N con FK directa. Para cubrir el requisito de que una actividad pueda tener varios participantes y un usuario participe en varias actividades se migró a una tabla intermedia `usuarios_actividades`.
 	- Solución: creación de `usuarios_actividades` con PK compuesta `(id_usuario, id_actividad)` y eliminación de la FK directa en `actividades_fidelizacion`.
-	- Aprendizaje: en migraciones reales hay que capturar los IDs generados por AUTO_INCREMENT (LAST_INSERT_ID o SELECTs) si se migran datos existentes; en scripts de simulación usar IDs explícitos es aceptable.
+	- Aprendizaje: en scripts de sql usar IDs explícitos es aceptable.
 
 2. Consistencia de nombres y pluralización:
 	- Desafío: cambiar la convención de nombres a plural para tablas y mantener coherencia en todos los scripts.
@@ -146,9 +145,4 @@ SELECT (SELECT COUNT(estado_login) from v_historialLoginDetallado WHERE estado_l
 
 3. Vistas y cálculo de tiempo entre filas:
 	- Desafío: calcular "tiempo desde el login previo" por usuario en una vista sin funciones de ventana es complejo y propenso a errores.
-	- La solución de hacer subconsultas es provechosa, aunque puede llegar a ser dificil de interpretar con el tiempo.
-
-## 6) Siguientes pasos recomendados
-
-- Ejecutar los scripts en MySQL 8+ y validar las vistas y resultados en `04_queries.sql`.
-- Si quieres, puedo reescribir `v_historialLoginDetallado` usando `LAG()` y/o copiar los scripts a `TALLER_03/` para generar un paquete listo para entrega.
+	- Solución: La solución de hacer subconsultas es provechosa, aunque puede llegar a ser dificil de interpretar con el tiempo.
