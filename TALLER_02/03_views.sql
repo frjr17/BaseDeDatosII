@@ -11,7 +11,8 @@ FROM usuarios u
  JOIN perfiles p ON u.id_perfil = p.id_perfil
  JOIN usuarios_actividades ua ON u.id_usuario = ua.id_usuario
  JOIN actividades_fidelizacion a ON a.id_actividad = ua.id_actividad
-GROUP BY u.id_usuario, u.nombre, u.apellido, p.nombre_perfil;
+GROUP BY u.id_usuario, u.nombre, u.apellido, p.nombre_perfil
+ORDER BY puntos_totales DESC;
 
 CREATE OR REPLACE VIEW v_actividadesPorPerfil AS
 SELECT
@@ -36,7 +37,8 @@ SELECT
     u.apellido,
     u.cargo,
     MAX(l.fecha_hora_login) AS fecha_hora_login,
-    l.estado_login
+    l.estado_login,
+    TIMESTAMPDIFF(SECOND,(SELECT fecha_hora_login FROM logins WHERE id_login = MAX(l.id_login)-1),MAX(l.fecha_hora_login))/60.00 AS tiempo_desde_anterior_login
 FROM logins l
 JOIN usuarios u ON u.id_usuario = l.id_usuario
 GROUP BY u.nombre, u.apellido, u.cargo;
