@@ -13,8 +13,6 @@ Archivos y carpetas en este directorio:
 - `tablas.sql`                                : Definición de tablas (esquema alternativo, `parcial1`).
 - `vistas.sql`                                : Vista(s) y consultas solicitadas por la II PARTE.
 
-Nota: en este folder no hay una carpeta `solution/`. Si necesitas que copie aquí los archivos de soporte adicionales (por ejemplo `solution/schema.sql`, `solution/queries.sql`, `run_mariadb.sh`) puedo moverlos o crear un subdirectorio `solution/` con esos artefactos.
-
 Objetivo del trabajo
 --------------------
 El objetivo fue construir una base de datos para la plataforma Pixel-Security-360 que cumpla con los requisitos del parcial: estructuras, registros, vistas informativas y documentación de entrega (dump, capturas y reflexiones). La entrega cubre las tres partes del parcial: esquema + datos, vistas y documentación de proceso.
@@ -42,12 +40,6 @@ Abajo incluyo las capturas que acompañan cada paso del proceso. Cada imagen est
 - `imgs/v_totalesPorEmpresa.png` — Salida de la vista `vista_totales_por_empresa` (totales y sumarios por tipo de empresa).
 - `imgs/v_mediosPago.png` — Salida de la vista `vista_medios_pago` (métodos de pago asociados a usuarios y últimos movimientos).
 - `imgs/v_autenticaciones.png` — Salida de la vista `vista_autenticaciones` (listado de autenticaciones con `fecha_consulta`).
-
-Ejemplo de cómo generé una salida en texto desde la línea de comandos (puedes replicarlo):
-
-```bash
-mariadb -u root -p -D pixel_security360 -e "SELECT * FROM vista_medios_pago LIMIT 10;" > evidencia_vista_medios_pago.txt
-```
 
 Imágenes incrustadas (visualización directa):
 
@@ -97,8 +89,7 @@ Imágenes incrustadas (visualización directa):
 
 Notas técnicas
 -------------------------------------------
-- Las contraseñas están como hashes de ejemplo en `contrasena_hash`. En un entorno real habría que usar hashing fuerte y sal.
-¿
+- Las contraseñas y tokens están como hashes de ejemplo en `contrasena_hash`. En un entorno real habría que usar hashing fuerte y sal.
 
 Lecciones aprendidas (mi reflexión personal)
 --------------------------------------------
