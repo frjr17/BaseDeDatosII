@@ -1,0 +1,8 @@
+cassandra-driver==3.29.2
+click==8.3.0
+cramjam==2.11.0
+geomet==0.2.1.post1
+lz4==4.4.4
+python-snappy==0.7.3
+scales==1.0.9
+six==1.17.0

@@ -1,0 +1,47 @@
+version: "3.9"
+
+networks:
+  dbnet:
+
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: cassandra
+    hostname: cassandra
+    environment:
+      CASSANDRA_CLUSTER_NAME: "demo-cluster"
+      CASSANDRA_DC: "dc1"
+      CASSANDRA_RACK: "rack1"
+      CASSANDRA_NUM_TOKENS: 16
+      MAX_HEAP_SIZE: "1G"
+      HEAP_NEWSIZE: "256M"
+    ulimits:
+      nofile: { soft: 100000, hard: 100000 }
+    ports:
+      - "9042:9042"       # CQL Cassandra (host->cont)
+    volumes:
+      - ./data/cassandra:/var/lib/cassandra
+    networks: [dbnet]
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE CLUSTER' 127.0.0.1 9042 || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 15
+      start_period: 60s
+
+  scylla:
+    image: scylladb/scylla:5.4
+    container_name: scylla
+    hostname: scylla
+    # params para que corra en laptops (1 CPU, <1GB RAM)
+    command: [
+      "--smp","1",
+      "--memory","750M",
+      "--overprovisioned","1",
+      "--api-address","0.0.0.0"
+    ]
+    ports:
+      - "9043:9042"       # CQL Scylla (en host usa 9043)
+    volumes:
+      - ./data/scylla:/var/lib/scylla
+    networks: [dbnet]
