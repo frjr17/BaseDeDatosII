@@ -4,13 +4,12 @@ import mariadb
 
 def getConnexion():
     connector = mariadb.connect(
-        user="root",
-        password="secret",
-        host="0.0.0.0",
-        port=3306,
-        database="taller3"
+        user=os.getenv("DB_USER"), # user="root",
+        password=os.getenv("DB_PASSWORD"), # password="secret"
+        host=os.getenv("DB_HOST"), # host="0.0.0.0"
+        port=int(os.getenv("DB_PORT")), # port=3306
+        database=os.getenv("DB_NAME") # database="taller3"
     )
-
     return connector
 
 def getCursor():
