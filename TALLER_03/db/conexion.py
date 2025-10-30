@@ -1,4 +1,3 @@
-#Jeyson Rodriguez
 import mariadb
 
 
