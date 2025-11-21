@@ -1,0 +1,10 @@
+@publisher_HostAddress = http://localhost:5122
+
+POST {{publisher_HostAddress}}/mensaje
+Content-Type: application/json
+
+{
+    "message": "Your message here"
+}
+
+###
