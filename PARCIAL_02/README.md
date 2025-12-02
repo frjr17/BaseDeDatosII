@@ -109,3 +109,67 @@ La API (`main.py`) expone los siguientes endpoints para interactuar con el siste
 3.  **Uso de Vistas**: Implementar vistas en SQL reduce significativamente la complejidad del código Python, delegando la lógica de unión de datos al motor de base de datos, que es más eficiente.
 4.  **Integridad de Datos con UUID**: El uso de UUIDs como claves primarias facilita la generación de IDs únicos desde la aplicación antes de la inserción, evitando problemas de concurrencia y facilitando la migración de datos.
 5.  **Validación de Datos**: Es crucial validar la existencia de claves foráneas (como `aseguradora` o `abogado`) antes de intentar insertar un registro para evitar errores de integridad referencial y proveer mensajes de error claros al cliente.
+
+## 🚀 Configuración y Ejecución
+
+Sigue estos pasos para configurar el entorno de desarrollo y ejecutar la API localmente.
+
+### 1. Crear un Entorno Virtual
+
+Es recomendable utilizar un entorno virtual para aislar las dependencias del proyecto.
+
+```bash
+# En Linux/macOS
+python3 -m venv venv
+
+# En Windows
+python -m venv venv
+```
+
+### 2. Activar el Entorno Virtual
+
+```bash
+# En Linux/macOS
+source venv/bin/activate
+
+# En Windows
+venv\Scripts\activate
+```
+
+### 3. Instalar Dependencias
+
+Instala las librerías necesarias listadas en `requirements.txt`.
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configurar Variables de Entorno
+
+Crea un archivo `.env` en la raíz del proyecto con las credenciales de tu base de datos MariaDB:
+
+```env
+DB_USER=tu_usuario
+DB_PASSWORD=tu_contraseña
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=SIS-EXP
+```
+
+### 5. Inicializar la Base de Datos
+
+Ejecuta el script de inicialización para crear las tablas e insertar datos de prueba.
+
+```bash
+python db/datos.py
+```
+
+### 6. Ejecutar la API
+
+Levanta el servidor de desarrollo de Flask.
+
+```bash
+flask --app main run --debug
+```
+
+La API estará disponible en `http://127.0.0.1:5000`.
